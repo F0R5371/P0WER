@@ -49,6 +49,8 @@ class Tree:
         visited = ([False] * range(self.nodes))
         explored = Stack(self.nodes)
 
+        considered = Stack(self.nodes)
+
         for i in range(len(self.tree_map)):
             if not visited[i]:
                 if len(self.tree_map[i].children) == 0:
@@ -56,7 +58,6 @@ class Tree:
                 else:
                     explored.push(self.tree_map[i])
                     visited[i] = True
-                    self.dfs_search()
                 
 
     def bsf_search(self, start, end):
