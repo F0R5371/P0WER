@@ -37,19 +37,27 @@ class TreeNode:
 
 class Tree:
     def __init__(self, nodes):
-        self.root = 1
-        self.nodes = nodes
+        self.nodes = nodes # Representing root as well
         # Instantiates the number of arrays representing every edge between each node
-        # Plus one possible to compensate for lack of edges??
-        self.tree_map = [[] for i in range(nodes + 1)]
+        self.tree_map = [TreeNode(i) for i in range(nodes)]
 
-    def add_edge(self, x, y):
+    def add_edge(self, x, *y):
         # Assignment of both to each other makes them linked
-        self.tree_map[x].append(y)
-        self.tree_map[y].append(x)
+        self.tree_map[x].children.append(y)
 
     def dfs_search(self, start, end):
-        pass
+        visited = ([False] * range(self.nodes))
+        explored = Stack(self.nodes)
+
+        for i in range(len(self.tree_map)):
+            if not visited[i]:
+                if len(self.tree_map[i].children) == 0:
+                    return explored
+                else:
+                    explored.push(self.tree_map[i])
+                    visited[i] = True
+                    self.dfs_search()
+                
 
     def bsf_search(self, start, end):
         pass
@@ -58,16 +66,9 @@ class Tree:
         pass
     
 brain = Tree(10)
-brain.add_edge(1, 2)
-brain.add_edge(1, 3)
-
-brain.add_edge(2, 4)
-brain.add_edge(2, 5)
-brain.add_edge(3, 6)
-brain.add_edge(3, 7)
-brain.add_edge(3, 8)
-
-brain.add_edge(5, 9)
+brain.add_edge(1, 2, 3)
+brain.add_edge(2, 4, 5)
+brain.add_edge(3, 6, 7, 8, 9)
 brain.add_edge(5, 10)
 
 thoughts = Stack(5)

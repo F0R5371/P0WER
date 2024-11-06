@@ -58,7 +58,7 @@ def setup_pathfinding():
     grid.draw_grid(can)
 
     # Tree structure
-    
+
 
 # Tkinter init
 root = Tk()
