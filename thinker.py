@@ -6,12 +6,12 @@ class Stack:
         self.top = -1
         self.stack = numpy.empty(max)
 
-    def push(self, node):
+    def push(self, value):
         if self.top == self.max - 1:
             return
 
         self.top += 1
-        self.stack[self.top] = node
+        self.stack[self.top] = value
 
     def pop(self):
         if self.empty():
@@ -34,6 +34,7 @@ class TreeNode:
     def __init__(self, data):
         self.data = data
         self.children = []
+        self.parent = None
 
 class Tree:
     def __init__(self, nodes):
@@ -43,23 +44,37 @@ class Tree:
 
     def add_edge(self, x, *y):
         # Assignment of both to each other makes them linked
-        self.tree_map[x].children.append(y)
+        for ele in range(len(y)):
+            self.tree_map[x].children.append(y[ele])
+            self.tree_map[x].children[ele].parent = x
 
     def dfs_search(self, start, end):
-        visited = ([False] * range(self.nodes))
         explored = Stack(self.nodes)
-
         considered = Stack(self.nodes)
 
-        for i in range(len(self.tree_map)):
-            if not visited[i]:
-                if len(self.tree_map[i].children) == 0:
-                    return explored
-                else:
-                    explored.push(self.tree_map[i])
-                    visited[i] = True
-                
+        # Root node already has been explored by default
+        explored.push(0)
 
+        def dfs_check(self, )
+
+        # Going through each node in the tree
+        for i in range(len(self.tree_map)):
+            for j in range(len(explored.stack)):
+                if explored.stack[j] != self.tree_map[i]:
+                    # If the node has children
+                    if len(self.tree_map[i].children) == 0:
+                        break
+                    else:
+                        # Puts each node into the consideration stack
+                        for node in self.tree_map[i].children:
+                            considered.push(self.tree_map[node].data)
+
+                        explored = considered.pop()
+
+        # I'm not completely sure if this works
+        for i in range(len(explored.stack)):
+            print(explored.stack[i])
+    
     def bsf_search(self, start, end):
         pass
 
@@ -72,18 +87,4 @@ brain.add_edge(2, 4, 5)
 brain.add_edge(3, 6, 7, 8, 9)
 brain.add_edge(5, 10)
 
-thoughts = Stack(5)
-thoughts.push(5)
-thoughts.push(5)
-thoughts.push(5)
-thoughts.push(5)
-thoughts.push(5)
-thoughts.push(5)
-thoughts.pop()
-thoughts.pop()
-thoughts.pop()
-thoughts.pop()
-thoughts.pop()
-thoughts.pop()
-
-thoughts.print()
+brain.dfs_search(0, 0)
