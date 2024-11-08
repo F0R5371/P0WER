@@ -1,6 +1,6 @@
 from tkinter import *
 import settings
-import thinker
+import searcher
 
 class Grid:
     def __init__(self, rows, cols):
